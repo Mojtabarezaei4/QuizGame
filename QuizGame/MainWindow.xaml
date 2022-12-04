@@ -1,0 +1,48 @@
+﻿<Window
+    x:Class="QuizGame.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:QuizGame.ViewModels"
+    xmlns:views="clr-namespace:QuizGame.Views"
+    Title="Quiz City"
+    Width="1300"
+    Height="750"
+    mc:Ignorable="d">
+    <Grid>
+
+        <!--#region Views-->
+
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MakeANewQuizViewModel}">
+                <views:MakeANewQuizView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MixQuizViewModel}">
+                <views:MixQuizView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AddANewQuestionViewModel}">
+                <views:AddANewQuestionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:EditQuestionViewModel}">
+                <views:EditQuizView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:QuestionsListViewModel}">
+                <views:QuestionsListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ResultViewModel}">
+                <views:ResultView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:GameViewModel}">
+                <views:GameView />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <!--#endregion-->
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>

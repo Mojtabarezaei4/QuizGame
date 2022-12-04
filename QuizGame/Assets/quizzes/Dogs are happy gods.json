@@ -1,0 +1,50 @@
+{
+  "Title": "Dogs are happy gods",
+  "Genres": [
+    "dog",
+    "animal"
+  ],
+  "ImageSource": "https://ggsc.s3.amazonaws.com/images/uploads/The_Science-Backed_Benefits_of_Being_a_Dog_Owner.jpg",
+  "Questions": [
+    {
+      "Statement": "What breed of dog is Lady in The Lady and the Tramp?",
+      "ImageSource": "https://images.immediate.co.uk/production/volatile/sites/3/2019/10/lady-and-the-tramp-224a4cc.jpg?quality=90\u0026resize=620,413",
+      "Answers": [
+        "American Cocker Spaniel",
+        "Poodle",
+        "Pomeranian"
+      ],
+      "CorrectAnswer": 0
+    },
+    {
+      "Statement": "In which movie animated cartoon can you see a dog named Dug?",
+      "ImageSource": "https://img.icons8.com/ios/100/null/no-image.png",
+      "Answers": [
+        "Up",
+        "Wall-E",
+        "Inside Out"
+      ],
+      "CorrectAnswer": 0
+    },
+    {
+      "Statement": "How many teeth does an adult dog have?",
+      "ImageSource": "https://assets3.thrillist.com/v1/image/2536470/1200x600/crop;",
+      "Answers": [
+        "42",
+        "40",
+        "44"
+      ],
+      "CorrectAnswer": 0
+    },
+    {
+      "Statement": "What is a group of puppies called?",
+      "ImageSource": "https://images.prismic.io/wisdom/2fabb777-59dc-4963-a38f-8bd8132c7e10_shutterstock_1048123303_cropped.jpg?auto=compress%2Cformat\u0026rect=241%2C0%2C1440%2C1080\u0026w=820\u0026h=615",
+      "Answers": [
+        "A litter",
+        "A pack",
+        "Puppies"
+      ],
+      "CorrectAnswer": 0
+    }
+  ]
+}
