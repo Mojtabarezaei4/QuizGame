@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using MongoDbDataAccess.Models;
 using QuizGame.Commands;
-using QuizGame.DataModels;
 using QuizGame.Managers;
 using QuizGame.Services;
+using Genre = QuizGame.DataModels.Genre;
 
 namespace QuizGame.ViewModels;
 

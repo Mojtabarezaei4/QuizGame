@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace QuizGame.DataModels;
+namespace MongoDbDataAccess.Models;
 
 public class Quiz
 {
-    private IEnumerable<Question> _questions;
-    private string _title = string.Empty;
-    private List<Genre> _genres;
-    
-    public string Title => _title;
-    public List<Genre> Genres => _genres;
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public List<Genre> Genres { get; set; }
     public string? ImageSource { get; set; }
-
-    [JsonInclude]
-    public IEnumerable<Question> Questions
-    {
-        get => _questions;
-        init => _questions = value;
-    }
-
+    public IEnumerable<Question> Questions { get; set; }
+    
     private static List<int> usedIndexes = new List<int>();
+    [BsonIgnore]
     public static bool NoQuestionsLeft = false;
 
     public Quiz(string title, string? imageSource, List<Genre> genres)
     {
-        _title = title;
-        _genres = genres;
+        Title = title;
+        Genres = genres;
         ImageSource = string.IsNullOrEmpty(imageSource) ? "https://img.icons8.com/ios/100/null/no-image.png" : imageSource;
-        _questions = new List<Question>();
+        Questions = new List<Question>();
     }
 
     public Question GetRandomQuestion()
     {
         var randomIndex = 0;
 
-        while (_questions.Count() != usedIndexes.Count())
+        while (Questions.Count() != usedIndexes.Count())
         {
-            randomIndex = new Random().Next(0, _questions.Count());
+            randomIndex = new Random().Next(0, Questions.Count());
             if (!usedIndexes.Contains(randomIndex))
             {
                 usedIndexes.Add(randomIndex);
@@ -47,30 +43,30 @@ public class Quiz
             }
         }
 
-        if (_questions.Count() == usedIndexes.Count())
+        if (Questions.Count() == usedIndexes.Count())
         {
             NoQuestionsLeft = true;
         }
-        return _questions.ElementAt(randomIndex);
+        return Questions.ElementAt(randomIndex);
     }
 
     public void AddQuestion(string statement, int correctAnswer, string imageSource, params string[] answers)
     {
-        List<Question> temp = _questions.ToList();
+        List<Question> temp = Questions.ToList();
         temp.Add(new Question(statement, imageSource, answers, 0));
-        _questions = temp;
+        Questions = temp;
     }
 
     public void RemoveQuestion(int index)
     {
-        List<Question> temp = _questions.ToList();
-        temp.Remove(_questions.ElementAt(index));
-        _questions = temp;
+        List<Question> temp = Questions.ToList();
+        temp.Remove(Questions.ElementAt(index));
+        Questions = temp;
     }
 
     public void MixQuestions(IEnumerable<Question> MixedQuestions)
     {
-        _questions = MixedQuestions;
+        Questions = MixedQuestions;
     }
 
     public static void ResetTheUsedIndex()

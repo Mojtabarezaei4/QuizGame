@@ -3,10 +3,11 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using QuizGame.DataModels;
+using MongoDbDataAccess.Models;
 using QuizGame.Managers;
 using QuizGame.Services;
 using QuizGame.ViewModels;
+using Genre = QuizGame.DataModels.Genre;
 
 namespace QuizGame.Commands;
 
@@ -50,6 +51,7 @@ public class AddQuestionCommand: CommandBase
         }
         else
         {
+            //_quizManager.CurrentQuiz = new Quiz(title, imageSource, genres.Cast<Genre>().ToList());
             _quizManager.CurrentQuiz = new Quiz(title, imageSource, genres.Cast<Genre>().ToList());
             return true;
         }

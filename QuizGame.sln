@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGame", "QuizGame\QuizGame.csproj", "{8620C988-6BE7-48ED-BAA5-80137B378318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizGame", "QuizGame\QuizGame.csproj", "{8620C988-6BE7-48ED-BAA5-80137B378318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDbDataAccess", "MongoDbDataAccess\MongoDbDataAccess.csproj", "{D7FBDA3D-9E08-49F6-88CD-92A1664F2459}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8620C988-6BE7-48ED-BAA5-80137B378318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8620C988-6BE7-48ED-BAA5-80137B378318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8620C988-6BE7-48ED-BAA5-80137B378318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7FBDA3D-9E08-49F6-88CD-92A1664F2459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7FBDA3D-9E08-49F6-88CD-92A1664F2459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7FBDA3D-9E08-49F6-88CD-92A1664F2459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7FBDA3D-9E08-49F6-88CD-92A1664F2459}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
