@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -17,7 +16,7 @@ public class Quiz
     public string? ImageSource { get; set; }
     public IEnumerable<Question> Questions { get; set; }
     
-    private static List<int> usedIndexes = new List<int>();
+    private static List<int> _usedIndexes = new List<int>();
     [BsonIgnore]
     public static bool NoQuestionsLeft = false;
 
@@ -33,28 +32,31 @@ public class Quiz
     {
         var randomIndex = 0;
 
-        while (Questions.Count() != usedIndexes.Count())
+        while (Questions.Count() != _usedIndexes.Count())
         {
             randomIndex = new Random().Next(0, Questions.Count());
-            if (!usedIndexes.Contains(randomIndex))
+            if (!_usedIndexes.Contains(randomIndex))
             {
-                usedIndexes.Add(randomIndex);
+                _usedIndexes.Add(randomIndex);
                 break;
             }
         }
 
-        if (Questions.Count() == usedIndexes.Count())
+        if (Questions.Count() == _usedIndexes.Count())
         {
             NoQuestionsLeft = true;
         }
         return Questions.ElementAt(randomIndex);
     }
 
-    public void AddQuestion(string statement, int correctAnswer, string imageSource, params string[] answers)
+    public Question AddQuestion(string statement, int correctAnswer, string imageSource, List<Genre> genres, params string[] answers)
     {
         List<Question> temp = Questions.ToList();
-        temp.Add(new Question(statement, imageSource, answers, 0));
+        var question = new Question(statement, imageSource, answers, 0, genres);
+        temp.Add(question);
         Questions = temp;
+
+        return question;
     }
 
     public void RemoveQuestion(int index)
@@ -64,14 +66,14 @@ public class Quiz
         Questions = temp;
     }
 
-    public void MixQuestions(IEnumerable<Question> MixedQuestions)
+    public void MixQuestions(IEnumerable<Question> mixedQuestions)
     {
-        Questions = MixedQuestions;
+        Questions = mixedQuestions;
     }
 
     public static void ResetTheUsedIndex()
     {
-        usedIndexes = new List<int>();
+        _usedIndexes = new List<int>();
     }
     public static void ResetNoQuestionsLeft()
     {

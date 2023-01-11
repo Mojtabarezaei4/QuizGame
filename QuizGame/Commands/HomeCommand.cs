@@ -1,4 +1,4 @@
-﻿using QuizGame.DataModels;
+﻿using MongoDbDataAccess.Models;
 using QuizGame.Managers;
 using QuizGame.Services;
 

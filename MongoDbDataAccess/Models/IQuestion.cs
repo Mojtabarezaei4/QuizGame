@@ -1,4 +1,6 @@
-﻿namespace MongoDbDataAccess.Models;
+﻿using System.Collections.Generic;
+
+namespace MongoDbDataAccess.Models;
 
 public interface IQuestion
 {
@@ -7,4 +9,5 @@ public interface IQuestion
     public string? ImageSource { get; set; }
     public string[] Answers { get; set; }
     public int CorrectAnswer { get; set; }
+    public List<Genre> Genres { get; set; }
 }

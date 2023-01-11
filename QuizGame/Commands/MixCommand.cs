@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using QuizGame.DataModels;
+using MongoDbDataAccess.Models;
 using QuizGame.Managers;
 using QuizGame.Services;
 using QuizGame.ViewModels;

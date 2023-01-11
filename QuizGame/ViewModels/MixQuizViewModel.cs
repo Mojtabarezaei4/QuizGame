@@ -2,8 +2,8 @@
 using System;
 using System.Linq;
 using System.Windows.Input;
+using MongoDbDataAccess.Models;
 using QuizGame.Commands;
-using QuizGame.DataModels;
 using QuizGame.Managers;
 using QuizGame.Services;
 
@@ -15,7 +15,7 @@ public class MixQuizViewModel : ViewModelBase
 
     #region BindingProps
 
-    public List<Genre> Genres => Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
+    public List<Genre> Genres => _quizManager.Genres;
 
     #endregion
 

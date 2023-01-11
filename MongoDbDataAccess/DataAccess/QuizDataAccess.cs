@@ -24,13 +24,13 @@ public class QuizDataAccess
 
     public async Task<List<Quiz>> GetAllQuizzes()
     {
-        var quizCollection = ConnectToMongo<Quiz>(QuestionCollection);
+        var quizCollection = ConnectToMongo<Quiz>(QuizCollection);
         var results = await quizCollection.FindAsync(_ => true);
 
         return results.ToList();
     }
 
-    public async Task<List<Question>> GetallQuestions()
+    public async Task<List<Question>> GetAllQuestions()
     {
         var questionCollection = ConnectToMongo<Question>(QuestionCollection);
         var results = await questionCollection.FindAsync(_ => true);
@@ -55,12 +55,40 @@ public class QuizDataAccess
     public Task CreateAQuestion(Question question)
     {
         var questionCollection = ConnectToMongo<Question>(QuestionCollection);
+        CreateAGenres(question.Genres);
         return questionCollection.InsertOneAsync(question);
     }
 
-    public Task CreateAGenre(Genre genre)
+    private Task CreateAGenres(List<Genre> genres)
     {
         var genreCollection = ConnectToMongo<Genre>(GenreCollection);
-        return genreCollection.InsertOneAsync(genre);
+        return genreCollection.InsertManyAsync(genres);
     }
+
+    public Task UpdateAQuiz(Quiz quiz)
+    {
+        var quizCollection = ConnectToMongo<Quiz>(QuizCollection);
+        var filter = Builders<Quiz>.Filter.Eq("Id", quiz.Id);
+        return quizCollection.ReplaceOneAsync(filter, quiz, new ReplaceOptions() { IsUpsert = true });
+    }
+
+    public Task UpdateAQuestion(Question question)
+    {
+        var questionCollection = ConnectToMongo<Question>(QuestionCollection);
+        var filter = Builders<Question>.Filter.Eq("Id",question.Id);
+        return questionCollection.ReplaceOneAsync(filter, question, new ReplaceOptions() { IsUpsert = true });
+    }
+
+    public Task DeleteAQuiz(Quiz quiz)
+    {
+        var quizCollection = ConnectToMongo<Quiz>(QuizCollection);
+        return quizCollection.DeleteOneAsync(q => q.Id == quiz.Id);
+    }
+
+    public Task DeleteAQuestion(Question question)
+    {
+        var questionCollection = ConnectToMongo<Question>(QuestionCollection);
+        return questionCollection.DeleteOneAsync( q => q.Id == question.Id);
+    }
+
 }

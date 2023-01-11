@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MongoDbDataAccess.DataAccess;
 using MongoDbDataAccess.Models;
-using QuizGame.Services;
 
 namespace QuizGame.Managers;
 
 public class QuizManager
 {
-    //private readonly string _filePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\quizzes";
-
     private readonly QuizDataAccess _quizDataAccess;
     public Quiz CurrentQuiz { get; set; }
     public Question CurrentQuestion { get; set; }
 
     public List<Quiz> Quizzes = new List<Quiz>();
-    
-
-    private readonly ReadFromJSONService _readFromJsonService = new ReadFromJSONService();
-    private readonly WriteToJSONService _writeToJsonService = new WriteToJSONService();
+    public List<Genre> currentQuizGenres { get; set; }
+    public List<Genre> Genres { get; set; }
 
     public int AskedQuestions = 0;
     public int RightAnswers = 0;
@@ -28,7 +21,6 @@ public class QuizManager
     public QuizManager(QuizDataAccess quizDataAccess)
     {
         _quizDataAccess = quizDataAccess;
-
 
         LoadQuizzes();
     }
@@ -41,30 +33,14 @@ public class QuizManager
 
     private async void LoadQuizzes()
     {
-        var quizzes = await _quizDataAccess.GetAllQuizzes();
+        Quizzes = await _quizDataAccess.GetAllQuizzes();
+        foreach (var q in Quizzes.Where(q => !q.Questions.Any()).ToList())
+        {
+            Quizzes.Remove(q);
+            await _quizDataAccess.DeleteAQuiz(q);
+        }
         
-        Quizzes = quizzes.ToList();
-
-        //if (!Directory.Exists(_filePath))
-        //{
-        //    Directory.CreateDirectory(_filePath);
-        //}
-        //else
-        //{
-        //    var files = Directory.GetFiles(_filePath);
-
-        //    foreach (var file in files)
-        //    {
-        //        var openedFile = _readFromJsonService.LoadQuizFromJsonAsync(file);
-
-        //        if (openedFile.Result != null && !openedFile.Result.Questions.Any()) { File.Delete(file); }
-
-        //        else
-        //        {
-        //            if (openedFile.Result != null) Quizzes.Add(openedFile.Result);
-        //        }
-        //    }
-        //}
+        Genres = await _quizDataAccess.GetAllGenres();
     }
 
     public void SaveAQuiz()
@@ -76,16 +52,27 @@ public class QuizManager
             foreach (var quiz in Quizzes)
             {
                 _quizDataAccess.CreateAQuiz(quiz);
+                //UpdateQuiz(quiz);
             }
         }
-        //Quizzes.Add(CurrentQuiz);
+    }
 
-        //if (Quizzes != null)
-        //{
-        //    foreach (Quiz quiz in Quizzes)
-        //    {
-        //        _writeToJsonService.SaveQuizToJsonAsync(quiz);
-        //    }
-        //}
+    public void SaveAQuestion(Question question)
+    {
+        _quizDataAccess.CreateAQuestion(question);
+    }
+
+    public void UpdateQuestion(Question question)
+    {
+        _quizDataAccess.UpdateAQuestion(question);
+    }
+
+    public void UpdateQuiz(Quiz quiz)
+    {
+        _quizDataAccess.UpdateAQuiz(quiz);
+    }
+    public void DeleteQuestion(Question question)
+    {
+        _quizDataAccess.DeleteAQuestion(question);
     }
 }

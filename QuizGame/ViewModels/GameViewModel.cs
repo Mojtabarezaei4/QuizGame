@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using MongoDbDataAccess.Models;
 using QuizGame.Commands;
-using QuizGame.DataModels;
 using QuizGame.Managers;
 using QuizGame.Services;
 

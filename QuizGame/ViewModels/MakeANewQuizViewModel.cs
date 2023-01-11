@@ -6,7 +6,6 @@ using MongoDbDataAccess.Models;
 using QuizGame.Commands;
 using QuizGame.Managers;
 using QuizGame.Services;
-using Genre = QuizGame.DataModels.Genre;
 
 namespace QuizGame.ViewModels;
 
@@ -28,7 +27,8 @@ public class MakeANewQuizViewModel : ViewModelBase
         }
     }
 
-    public List<Genre> Genres => Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
+    //public List<Genre> Genres => Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
+    public List<Genre> Genres => _quizManager.Genres;
 
     private string? _imageSource;
 

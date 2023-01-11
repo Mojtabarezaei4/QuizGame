@@ -7,7 +7,6 @@ using MongoDbDataAccess.Models;
 using QuizGame.Managers;
 using QuizGame.Services;
 using QuizGame.ViewModels;
-using Genre = QuizGame.DataModels.Genre;
 
 namespace QuizGame.Commands;
 
@@ -22,6 +21,7 @@ public class AddQuestionCommand: CommandBase
         _makeANewQuizViewModel = makeANewQuizViewModel;
         _navigationService = navigationService;
         _quizManager = quizManager;
+        _quizManager.currentQuizGenres = _makeANewQuizViewModel.Genres;
 
         _makeANewQuizViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }
@@ -51,8 +51,8 @@ public class AddQuestionCommand: CommandBase
         }
         else
         {
-            //_quizManager.CurrentQuiz = new Quiz(title, imageSource, genres.Cast<Genre>().ToList());
-            _quizManager.CurrentQuiz = new Quiz(title, imageSource, genres.Cast<Genre>().ToList());
+            var temp = genres.Cast<Genre>().ToList();
+            _quizManager.CurrentQuiz = new Quiz(title, imageSource, temp);
             return true;
         }
     }

@@ -1,5 +1,4 @@
-﻿using QuizGame.DataModels;
-using QuizGame.Managers;
+﻿using QuizGame.Managers;
 using QuizGame.ViewModels;
 using System;
 using System.Collections.Generic;
