@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using MongoDB.Driver;
@@ -55,14 +56,13 @@ public class QuizDataAccess
     public Task CreateAQuestion(Question question)
     {
         var questionCollection = ConnectToMongo<Question>(QuestionCollection);
-        CreateAGenres(question.Genres);
         return questionCollection.InsertOneAsync(question);
     }
 
-    private Task CreateAGenres(List<Genre> genres)
+    public Task CreateAGenre(Genre genre)
     {
         var genreCollection = ConnectToMongo<Genre>(GenreCollection);
-        return genreCollection.InsertManyAsync(genres);
+        return genreCollection.InsertOneAsync(genre);
     }
 
     public Task UpdateAQuiz(Quiz quiz)
@@ -75,7 +75,7 @@ public class QuizDataAccess
     public Task UpdateAQuestion(Question question)
     {
         var questionCollection = ConnectToMongo<Question>(QuestionCollection);
-        var filter = Builders<Question>.Filter.Eq("Id",question.Id);
+        var filter = Builders<Question>.Filter.Eq("Id", question.Id);
         return questionCollection.ReplaceOneAsync(filter, question, new ReplaceOptions() { IsUpsert = true });
     }
 
@@ -88,7 +88,7 @@ public class QuizDataAccess
     public Task DeleteAQuestion(Question question)
     {
         var questionCollection = ConnectToMongo<Question>(QuestionCollection);
-        return questionCollection.DeleteOneAsync( q => q.Id == question.Id);
+        return questionCollection.DeleteOneAsync(q => q.Id == question.Id);
     }
 
 }

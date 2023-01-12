@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -21,7 +22,7 @@ public class AddQuestionCommand: CommandBase
         _makeANewQuizViewModel = makeANewQuizViewModel;
         _navigationService = navigationService;
         _quizManager = quizManager;
-        _quizManager.currentQuizGenres = _makeANewQuizViewModel.Genres;
+        _quizManager.CurrentQuizGenres = _makeANewQuizViewModel.Genres.ToList();
 
         _makeANewQuizViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }
@@ -51,8 +52,9 @@ public class AddQuestionCommand: CommandBase
         }
         else
         {
-            var temp = genres.Cast<Genre>().ToList();
-            _quizManager.CurrentQuiz = new Quiz(title, imageSource, temp);
+            var tempGenres = genres.Cast<Genre>().ToList();
+            _quizManager.CurrentQuiz = new Quiz(title, imageSource, tempGenres);
+            _quizManager.CurrentQuizGenres = tempGenres;
             return true;
         }
     }

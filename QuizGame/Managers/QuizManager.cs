@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using MongoDbDataAccess.DataAccess;
 using MongoDbDataAccess.Models;
@@ -12,8 +13,8 @@ public class QuizManager
     public Question CurrentQuestion { get; set; }
 
     public List<Quiz> Quizzes = new List<Quiz>();
-    public List<Genre> currentQuizGenres { get; set; }
-    public List<Genre> Genres { get; set; }
+    public List<Genre> CurrentQuizGenres { get; set; }
+    public ObservableCollection<Genre> Genres { get; set; }
 
     public int AskedQuestions = 0;
     public int RightAnswers = 0;
@@ -39,8 +40,8 @@ public class QuizManager
             Quizzes.Remove(q);
             await _quizDataAccess.DeleteAQuiz(q);
         }
-        
-        Genres = await _quizDataAccess.GetAllGenres();
+
+        Genres = new ObservableCollection<Genre>(await _quizDataAccess.GetAllGenres());
     }
 
     public void SaveAQuiz()
@@ -74,5 +75,18 @@ public class QuizManager
     public void DeleteQuestion(Question question)
     {
         _quizDataAccess.DeleteAQuestion(question);
+    }
+
+    public void SaveAGenre(string newGenre)
+    {
+        var genre = new Genre()
+        {
+            Name = newGenre
+        };
+        if (Genres.ToList().FirstOrDefault(g => g.Name.ToLower() == genre.Name.ToLower()) == null)
+        {
+            _quizDataAccess.CreateAGenre(genre);
+            Genres.Add(genre);
+        }
     }
 }

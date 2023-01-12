@@ -30,7 +30,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -64,32 +64,6 @@
                             <ColumnDefinition Width="*" SharedSizeGroup="FirstColumn" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Width="140"
-                            Margin="10"
-                            VerticalAlignment="Center"
-                            FontSize="20"
-                            Foreground="#484848"
-                            Text="Genre*"
-                            TextAlignment="Center" />
-                        <ListBox
-                            x:Name="GenreListBox"
-                            Grid.Column="1"
-                            Margin="10"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            ItemContainerStyle="{StaticResource checkmarkItem}"
-                            ItemsSource="{Binding Genres}"
-                            SelectionMode="Multiple" />
-                    </Grid>
-
-                    <Grid Grid.Row="2" Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" SharedSizeGroup="FirstColumn" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Width="140"
@@ -107,6 +81,82 @@
                             BorderBrush="Transparent"
                             Text="{Binding ImageSource, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" SharedSizeGroup="FirstColumn" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Width="140"
+                            Margin="10,20,10,10"
+                            VerticalAlignment="Top"
+                            FontSize="20"
+                            Foreground="#484848"
+                            Text="Genre*"
+                            TextAlignment="Center" />
+                        <Grid
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,10,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Margin="0,20,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Foreground="#484848"
+                                Text="Choose genre/genres or enter new"
+                                TextAlignment="Center" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Width="450"
+                                Margin="0,10,10,10"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="#484848"
+                                Text="{Binding NewGenre, UpdateSourceTrigger=PropertyChanged}"
+                                TextAlignment="Center" />
+
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Width="100"
+                                Height="30"
+                                Margin="10,10,10,10"
+                                Command="{Binding AddGenreCommand}"
+                                Content="Add genre"
+                                FontSize="15" />
+                            <ListBox
+                                x:Name="GenreListBox"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Height="200"
+                                Margin="0,10,0,0"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ItemContainerStyle="{StaticResource checkmarkItem}"
+                                ItemsSource="{Binding Genres}"
+                                ScrollViewer.CanContentScroll="True"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                SelectionMode="Multiple" />
+
+
+                        </Grid>
+                    </Grid>
+
+
                 </Grid>
             </ScrollViewer>
         </Grid>

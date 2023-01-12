@@ -15,7 +15,7 @@ public class MixQuizViewModel : ViewModelBase
 
     #region BindingProps
 
-    public List<Genre> Genres => _quizManager.Genres;
+    public List<Genre> Genres => _quizManager.Genres.ToList();
 
     #endregion
 

@@ -15,9 +15,10 @@ public class AddAQuestionService
     }
     public void AddQuestion()
     {
-            var question = _quizManager.CurrentQuiz.AddQuestion(_addANewQuestionViewModel.Statement, 0, _addANewQuestionViewModel.ImageSource,
-                _quizManager.currentQuizGenres, _addANewQuestionViewModel.CorrectAnswer, 
-                _addANewQuestionViewModel.AlternativeAnswer, _addANewQuestionViewModel.AlternativeAnswerTwo);
+            var question = _quizManager.CurrentQuiz.AddQuestion(_addANewQuestionViewModel.Statement, 0, 
+                _addANewQuestionViewModel.ImageSource, _quizManager.CurrentQuizGenres, 
+                _addANewQuestionViewModel.CorrectAnswer, _addANewQuestionViewModel.AlternativeAnswer, 
+                _addANewQuestionViewModel.AlternativeAnswerTwo);
             _quizManager.SaveAQuestion(question);
     }
 }

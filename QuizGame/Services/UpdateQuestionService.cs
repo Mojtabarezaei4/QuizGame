@@ -24,7 +24,7 @@ public class UpdateQuestionService
             var temp = Array.IndexOf(_quizManager.CurrentQuiz.Questions.ToArray(), _quizManager.CurrentQuestion);
             _quizManager.CurrentQuiz.RemoveQuestion(temp);
             var question = _quizManager.CurrentQuiz.AddQuestion(_editQuestionViewModel.Statement, 0, _editQuestionViewModel.ImageSource,
-                _quizManager.currentQuizGenres, _editQuestionViewModel.CorrectAnswer, _editQuestionViewModel.AlternativeAnswer, 
+                _quizManager.CurrentQuizGenres, _editQuestionViewModel.CorrectAnswer, _editQuestionViewModel.AlternativeAnswer, 
                 _editQuestionViewModel.AlternativeAnswerTwo);
             _quizManager.UpdateQuestion(question);
         //}

@@ -62,7 +62,8 @@ namespace QuizGame
         {
             return new MakeANewQuizViewModel(_quizManager,
                 new NavigationService(_navigationManager, CreateHomeViewModel),
-                new NavigationService(_navigationManager, CreateAddANewQuestionViewModel));
+                new NavigationService(_navigationManager, CreateAddANewQuestionViewModel), 
+                new NavigationService(_navigationManager, CreateMakeANewQuizViewModel));
         }
 
         private ViewModelBase CreateAddANewQuestionViewModel()

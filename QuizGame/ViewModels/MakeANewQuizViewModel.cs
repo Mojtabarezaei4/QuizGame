@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using MongoDbDataAccess.Models;
@@ -26,9 +27,18 @@ public class MakeANewQuizViewModel : ViewModelBase
             OnPropertyChanged(nameof(Title));
         }
     }
-
-    //public List<Genre> Genres => Enum.GetValues(typeof(Genre)).Cast<Genre>().ToList();
-    public List<Genre> Genres => _quizManager.Genres;
+    private string _newGenre;
+    public string NewGenre
+    {
+        get => _newGenre;
+        set
+        {
+            _newGenre = value;
+            OnPropertyChanged(nameof(NewGenre));
+        }
+    }
+    
+    public ObservableCollection<Genre> Genres { get; }
 
     private string? _imageSource;
 
@@ -46,15 +56,19 @@ public class MakeANewQuizViewModel : ViewModelBase
 
     #region Commands
 
+    public ICommand AddGenreCommand { get; }
     public ICommand CancelCommand { get; }
     public ICommand AddQuestionCommand { get; }
 
     #endregion
 
-    public MakeANewQuizViewModel(QuizManager quizManager, NavigationService navigateToHome, NavigationService navigateToAddQuestion)
+    public MakeANewQuizViewModel(QuizManager quizManager, NavigationService navigateToHome,
+        NavigationService navigateToAddQuestion, NavigationService navigateToNewQuizViewModel)
     {
         _quizManager = quizManager;
+        Genres = new ObservableCollection<Genre>(_quizManager.Genres);
 
+        AddGenreCommand = new AddGenreCommand(_quizManager, this, navigateToNewQuizViewModel);
         CancelCommand = new CancelCommand(navigateToHome);
         AddQuestionCommand = new AddQuestionCommand(_quizManager, this, navigateToAddQuestion);
     }
