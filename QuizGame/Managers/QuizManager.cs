@@ -9,6 +9,7 @@ namespace QuizGame.Managers;
 public class QuizManager
 {
     private readonly QuizDataAccess _quizDataAccess;
+    //public QuizDataAccess QuizDataAccess => _quizDataAccess;
     public Quiz CurrentQuiz { get; set; }
     public Question CurrentQuestion { get; set; }
 
@@ -26,11 +27,11 @@ public class QuizManager
         LoadQuizzes();
     }
 
-    public void ResetStates()
-    {
-        AskedQuestions = 0;
-        RightAnswers = 0;
-    }
+    //public void ResetStates()
+    //{
+    //    AskedQuestions = 0;
+    //    RightAnswers = 0;
+    //}
 
     private async void LoadQuizzes()
     {
@@ -53,9 +54,11 @@ public class QuizManager
             foreach (var quiz in Quizzes)
             {
                 _quizDataAccess.CreateAQuiz(quiz);
-                //UpdateQuiz(quiz);
+                UpdateQuiz(quiz);
             }
         }
+
+        LoadQuizzes();
     }
 
     public void SaveAQuestion(Question question)

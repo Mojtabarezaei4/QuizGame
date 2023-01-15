@@ -25,6 +25,7 @@ public class MixCommand : CommandBase
 
         _navigationService = navigationService;
 
+
         _mixQuizViewModel.PropertyChanged += OnViewModelPropertyChanged;
     }
 
@@ -51,15 +52,14 @@ public class MixCommand : CommandBase
 
         if (genres != null && genres.Count > 0)
         {
-            var questions = new List<Question>();
-
-            foreach (var genre in genres)
+            foreach (var genre in genres.Cast<Genre>().ToList())
             {
-                var matchedQuizzes = _quizManager.Quizzes.Where(q => q.Genres.Any(g => g.Equals(genre))).ToList();
+                var matchedQuizzes = _quizManager.Quizzes.Where(q => q.Genres.
+                    Any(g => g.Name.Equals(genre.Name))).ToList();
 
                 foreach (var matchedQuiz in matchedQuizzes)
                 {
-                    questions = matchedQuiz.Questions.ToList();
+                    var questions = matchedQuiz.Questions.ToList();
 
                     _mixedQuestions.AddRange(questions);
                     _mixedQuestions.Concat(questions);

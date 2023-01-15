@@ -55,7 +55,8 @@ namespace QuizGame
 
         private MixQuizViewModel CreateMixQuizViewModel()
         {
-            return new MixQuizViewModel(_quizManager, new NavigationService(_navigationManager, CreateHomeViewModel), new NavigationService(_navigationManager, CreateGameViewModel));
+            return new MixQuizViewModel(_quizManager, new NavigationService(_navigationManager, CreateHomeViewModel), 
+                new NavigationService(_navigationManager, CreateGameViewModel));
         }
 
         private MakeANewQuizViewModel CreateMakeANewQuizViewModel()
@@ -87,7 +88,8 @@ namespace QuizGame
             {
                 return CreateResultViewModel();
             }
-            return new GameViewModel(_quizManager, new NavigationService(_navigationManager, CreateHomeViewModel), new NavigationService(_navigationManager, CreateGameViewModel));
+            return new GameViewModel(_quizManager, new NavigationService(_navigationManager, CreateHomeViewModel), 
+                new NavigationService(_navigationManager, CreateGameViewModel));
         }
 
         private QuestionsListViewModel CreateQuestionsListViewModel()
