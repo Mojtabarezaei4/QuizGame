@@ -92,14 +92,19 @@ public class AddANewQuestionViewModel : ViewModelBase
 
     public ICommand CancelCommand { get; }
     public ICommand QuestionsCommand { get; }
+    public ICommand PickFromDbCommand { get; }
     public ICommand NextCommand { get; }
+
+    
 
     #endregion
 
-    public AddANewQuestionViewModel(QuizManager quizManager, NavigationService navigateHome, NavigationService navigateQuestionsView, NavigationService navigateAddQuestionView)
+    public AddANewQuestionViewModel(QuizManager quizManager, NavigationService navigateHome, NavigationService navigateQuestionsView, 
+        NavigationService navigateAddQuestionView, NavigationService navigateToQuestionBank)
     {
         _quizManager = quizManager;
-
+        
+        PickFromDbCommand = new PickFromDbCommand(navigateToQuestionBank);
         CancelCommand = new CancelCommand(navigateHome);
         QuestionsCommand = new QuestionsCommand(navigateQuestionsView);
         NextCommand = new NextCommand(_quizManager, this, navigateAddQuestionView);
