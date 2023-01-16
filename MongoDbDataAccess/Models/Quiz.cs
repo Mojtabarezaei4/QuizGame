@@ -58,6 +58,15 @@ public class Quiz
 
         return question;
     }
+    public Question AddQuestion(Question question)
+    {
+        List<Question> temp = Questions.ToList();
+        temp.Add(question);
+        Questions = temp;
+
+        return question;
+    }
+
 
     public void RemoveQuestion(int index)
     {

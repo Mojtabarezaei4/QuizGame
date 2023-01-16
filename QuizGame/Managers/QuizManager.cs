@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using MongoDbDataAccess.DataAccess;
 using MongoDbDataAccess.Models;
 
@@ -16,6 +17,7 @@ public class QuizManager
     public List<Quiz> Quizzes = new List<Quiz>();
     public List<Genre> CurrentQuizGenres { get; set; }
     public ObservableCollection<Genre> Genres { get; set; }
+    public IEnumerable<Question> Questions { get; set; }
 
     public int AskedQuestions = 0;
     public int RightAnswers = 0;
@@ -23,17 +25,9 @@ public class QuizManager
     public QuizManager(QuizDataAccess quizDataAccess)
     {
         _quizDataAccess = quizDataAccess;
-
-        LoadQuizzes();
     }
-
-    //public void ResetStates()
-    //{
-    //    AskedQuestions = 0;
-    //    RightAnswers = 0;
-    //}
-
-    private async void LoadQuizzes()
+    
+    public async Task LoadQuizzes()
     {
         Quizzes = await _quizDataAccess.GetAllQuizzes();
         foreach (var q in Quizzes.Where(q => !q.Questions.Any()).ToList())
@@ -42,10 +36,13 @@ public class QuizManager
             await _quizDataAccess.DeleteAQuiz(q);
         }
 
+        Questions = await _quizDataAccess.GetAllQuestions();
+
         Genres = new ObservableCollection<Genre>(await _quizDataAccess.GetAllGenres());
+
     }
 
-    public void SaveAQuiz()
+    public async Task SaveAQuiz()
     {
         Quizzes.Add(CurrentQuiz);
 
@@ -53,12 +50,12 @@ public class QuizManager
         {
             foreach (var quiz in Quizzes)
             {
-                _quizDataAccess.CreateAQuiz(quiz);
+                await _quizDataAccess.CreateAQuiz(quiz);
                 UpdateQuiz(quiz);
             }
         }
 
-        LoadQuizzes();
+        await LoadQuizzes();
     }
 
     public void SaveAQuestion(Question question)

@@ -92,7 +92,7 @@ public class AddANewQuestionViewModel : ViewModelBase
 
     public ICommand CancelCommand { get; }
     public ICommand QuestionsCommand { get; }
-    public ICommand PickFromDbCommand { get; }
+    public ICommand NavigateToQuestionBank { get; }
     public ICommand NextCommand { get; }
 
     
@@ -104,7 +104,7 @@ public class AddANewQuestionViewModel : ViewModelBase
     {
         _quizManager = quizManager;
         
-        PickFromDbCommand = new PickFromDbCommand(navigateToQuestionBank);
+        NavigateToQuestionBank = new NavigateCommand(navigateToQuestionBank);
         CancelCommand = new CancelCommand(navigateHome);
         QuestionsCommand = new QuestionsCommand(navigateQuestionsView);
         NextCommand = new NextCommand(_quizManager, this, navigateAddQuestionView);

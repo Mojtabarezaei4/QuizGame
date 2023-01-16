@@ -29,8 +29,9 @@ namespace QuizGame
             _navigationManager = new NavigationManager();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            await _quizManager.LoadQuizzes();
             _navigationManager.CurrentViewModel = CreateHomeViewModel();
 
             MainWindow = new MainWindow()
@@ -72,7 +73,15 @@ namespace QuizGame
             return new AddANewQuestionViewModel(_quizManager,
                 new NavigationService(_navigationManager, CreateHomeViewModel),
                 new NavigationService(_navigationManager, CreateQuestionsListViewModel),
-                new NavigationService(_navigationManager, CreateAddANewQuestionViewModel));
+                new NavigationService(_navigationManager, CreateAddANewQuestionViewModel),
+                new NavigationService(_navigationManager, CreateQuestionBankViewModel));
+        }
+
+        private ViewModelBase CreateQuestionBankViewModel()
+        {
+            return new QuestionBankViewModel(_quizManager,
+                new NavigationService(_navigationManager, CreateAddANewQuestionViewModel),
+                new NavigationService(_navigationManager, CreateQuestionsListViewModel));
         }
 
         private EditQuestionViewModel CreateEditQuizViewModel()

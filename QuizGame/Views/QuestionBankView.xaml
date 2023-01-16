@@ -1,0 +1,138 @@
+﻿<UserControl
+    x:Class="QuizGame.Views.QuestionBankView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuizGame.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid Background="#D9D9D9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--#region Header-->
+        <Grid>
+            <TextBlock Style="{StaticResource Header}" Text="Question Bank" />
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Content-->
+        <Grid Grid.Row="1">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ListView
+                    x:Name="GridViewQuizzes"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ItemContainerStyle="{StaticResource checkmarkItem}"
+                    ItemsSource="{Binding Questions}"
+                    SelectedIndex="{Binding SelectedQuestionIndex}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Width="150"
+                                Height="200"
+                                Margin="10,4,10,4"
+                                BorderBrush="LightGray"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        Direction="270"
+                                        ShadowDepth="3"
+                                        Color="#9e9d9d" />
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Border
+                                        Grid.Row="0"
+                                        Width="120"
+                                        Height="120"
+                                        CornerRadius="12">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                Direction="270"
+                                                ShadowDepth="3"
+                                                Color="#9e9d9d" />
+                                        </Border.Effect>
+                                        <Image
+                                            Width="130"
+                                            Source="{Binding ImageSource}"
+                                            Stretch="Uniform" />
+                                    </Border>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        FontSize="15"
+                                        Text="{Binding Statement}"
+                                        TextAlignment="Center" />
+                                    <ListView
+                                        Grid.Row="2"
+                                        HorizontalContentAlignment="Center"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        FontSize="10"
+                                        IsEnabled="False"
+                                        ItemsSource="{Binding Genres}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListViewItem Background="Transparent" Content="{Binding}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="750" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ListView>
+            </ScrollViewer>
+
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Footer-->
+        <Grid
+            Grid.Row="2"
+            Width="750"
+            Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                Width="150"
+                Height="50"
+                Command="{Binding QuestionsCommand}"
+                Content="Questions"
+                FontSize="20" />
+
+            <Button
+                Grid.Column="3"
+                Width="150"
+                Height="50"
+                Command="{Binding PickFromDbCommand}"
+                Content="Add This"
+                FontSize="20" />
+        </Grid>
+        <!--#endregion-->
+
+    </Grid>
+</UserControl>
