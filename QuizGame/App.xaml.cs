@@ -47,6 +47,7 @@ namespace QuizGame
 
         private HomeViewModel CreateHomeViewModel()
         {
+            _quizManager.LoadQuizzes();
             return new HomeViewModel(_quizManager,
                 new NavigationService(_navigationManager, CreateQuestionsListViewModel),
                 new NavigationService(_navigationManager, CreateGameViewModel),

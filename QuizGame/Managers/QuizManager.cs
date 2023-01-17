@@ -15,7 +15,7 @@ public class QuizManager
     public Question CurrentQuestion { get; set; }
 
     public List<Quiz> Quizzes = new List<Quiz>();
-    public List<Genre> CurrentQuizGenres { get; set; }
+    public List<string> CurrentQuizGenres { get; set; }
     public ObservableCollection<Genre> Genres { get; set; }
     public IEnumerable<Question> Questions { get; set; }
 
@@ -50,7 +50,7 @@ public class QuizManager
         {
             foreach (var quiz in Quizzes)
             {
-                await _quizDataAccess.CreateAQuiz(quiz);
+                _quizDataAccess.CreateAQuiz(quiz);
                 UpdateQuiz(quiz);
             }
         }

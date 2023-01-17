@@ -48,25 +48,27 @@ public class MixCommand : CommandBase
         var genreExist = false;
         var foundGenres = string.Empty;
         var missingGenre = string.Empty;
-
+        var tempGenres = new List<string>();
 
         if (genres != null && genres.Count > 0)
         {
             foreach (var genre in genres.Cast<Genre>().ToList())
             {
                 var matchedQuizzes = _quizManager.Quizzes.Where(q => q.Genres.
-                    Any(g => g.Name.Equals(genre.Name))).ToList();
+                    Any(g => g.Equals(genre.Name))).ToList();
 
                 foreach (var matchedQuiz in matchedQuizzes)
                 {
                     var questions = matchedQuiz.Questions.ToList();
-
+                    
                     _mixedQuestions.AddRange(questions);
                     _mixedQuestions.Concat(questions);
                     genreExist = true;
                 }
 
                 foundGenres += !string.IsNullOrEmpty(foundGenres) ? ", " + genre.ToString() : genre.ToString();
+
+                tempGenres.Add(genre.Name);
 
                 if (!genreExist)
                 {
@@ -78,7 +80,7 @@ public class MixCommand : CommandBase
                 genreExist = false;
             }
 
-            var mixedQuiz = new Quiz(($"Mix of: {foundGenres}"), null, genres.Cast<Genre>().ToList());
+            var mixedQuiz = new Quiz(($"Mix of: {foundGenres}"), null, tempGenres);
             mixedQuiz.MixQuestions(_mixedQuestions);
             if (mixedQuiz.Questions.Any())
             {

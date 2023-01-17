@@ -62,7 +62,12 @@ public class QuizDataAccess
     public Task CreateAGenre(Genre genre)
     {
         var genreCollection = ConnectToMongo<Genre>(GenreCollection);
-        return genreCollection.InsertOneAsync(genre);
+
+        if (!genreCollection.Find(_ => true).ToList().Any(g => g.Name.ToLower().Equals(genre.Name.ToLower())))
+        {
+            return genreCollection.InsertOneAsync(genre);
+        }
+        return Task.CompletedTask;
     }
 
     public Task UpdateAQuiz(Quiz quiz)

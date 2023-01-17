@@ -58,7 +58,7 @@ public class QuestionsListViewModel : ViewModelBase
         DeleteQuestionCommand = new DeleteQuestionCommand(_quizManager, this, navigateQuestionListView);
 
         NavigateAddQuestionCommand = new NavigateCommand(navigateToAddQuestion);
-        CancelCommand = new CancelCommand(navigateHome);
+        CancelCommand = new CancelCommand(navigateHome, _quizManager);
         FinishCommand = new FinishCommand(_quizManager, this, navigateHome);
     }
 

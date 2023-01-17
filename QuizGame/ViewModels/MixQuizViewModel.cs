@@ -32,6 +32,6 @@ public class MixQuizViewModel : ViewModelBase
         _quizManager = quizManager;
 
         MixCommand = new MixCommand(quizManager, this, navigateGameView);
-        CancelCommand = new CancelCommand(navigateHome);
+        CancelCommand = new CancelCommand(navigateHome, _quizManager);
     }
 }

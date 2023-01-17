@@ -106,7 +106,7 @@ public class EditQuestionViewModel : ViewModelBase
         _alternativeAnswerTwo = currentQuestion.Answers[2];
         _imageSource = currentQuestion.ImageSource;
 
-        CancelCommand = new CancelCommand(navigateHome);
+        CancelCommand = new CancelCommand(navigateHome, _quizManager);
         QuestionsCommand = new QuestionsCommand(navigateQuestionsView);
         EditCommand = new UpdateQuestionCommand(_quizManager, this, navigateQuestionListView);
     }

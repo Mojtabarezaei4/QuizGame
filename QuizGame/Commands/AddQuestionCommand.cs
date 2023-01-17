@@ -52,7 +52,7 @@ public class AddQuestionCommand: CommandBase
         }
         else
         {
-            var tempGenres = genres.Cast<Genre>().ToList();
+            var tempGenres = genres.Cast<string>().ToList();
             _quizManager.CurrentQuiz = new Quiz(title, imageSource, tempGenres);
             _quizManager.CurrentQuizGenres = tempGenres;
             return true;

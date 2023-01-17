@@ -39,6 +39,9 @@
             <DataTemplate DataType="{x:Type viewModels:GameViewModel}">
                 <views:GameView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:QuestionBankViewModel}">
+                <views:QuestionBankView />
+            </DataTemplate>
         </Grid.Resources>
 
         <!--#endregion-->

@@ -12,7 +12,7 @@ public class Quiz
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
     public string Title { get; set; }
-    public List<Genre> Genres { get; set; }
+    public List<string> Genres { get; set; }
     public string? ImageSource { get; set; }
     public IEnumerable<Question> Questions { get; set; }
     
@@ -20,7 +20,7 @@ public class Quiz
     [BsonIgnore]
     public static bool NoQuestionsLeft = false;
 
-    public Quiz(string title, string? imageSource, List<Genre> genres)
+    public Quiz(string title, string? imageSource, List<string> genres)
     {
         Title = title;
         Genres = genres;
@@ -49,7 +49,7 @@ public class Quiz
         return Questions.ElementAt(randomIndex);
     }
 
-    public Question AddQuestion(string statement, int correctAnswer, string imageSource, List<Genre> genres, params string[] answers)
+    public Question AddQuestion(string statement, int correctAnswer, string imageSource, List<string> genres, params string[] answers)
     {
         List<Question> temp = Questions.ToList();
         var question = new Question(statement, imageSource, answers, 0, genres);

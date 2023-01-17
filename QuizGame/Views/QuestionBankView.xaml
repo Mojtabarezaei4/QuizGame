@@ -24,14 +24,46 @@
 
         <!--#region Content-->
         <Grid Grid.Row="1">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="240"
+                Margin="290,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                FontSize="15"
+                Foreground="#484848"
+                Text="Search for statement:" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="460"
+                Height="40"
+                HorizontalAlignment="Left"
+                BorderBrush="Transparent"
+                Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
+            <ScrollViewer
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
                 <ListView
                     x:Name="GridViewQuizzes"
                     Background="Transparent"
                     BorderThickness="0"
                     ItemContainerStyle="{StaticResource checkmarkItem}"
                     ItemsSource="{Binding Questions}"
-                    SelectedIndex="{Binding SelectedQuestionIndex}">
+                    SelectedIndex="{Binding SelectedQuestionIndex, Mode=TwoWay}"
+                    SelectionMode="Single">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border

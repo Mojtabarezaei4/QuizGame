@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using MongoDbDataAccess.Models;
 using QuizGame.Commands;
@@ -17,6 +16,22 @@ public class QuestionBankViewModel : ViewModelBase
     public Question SelectedQuestion => _selectedQuestion;
 
 
+
+    private string _search;
+
+    public string Search
+    {
+        get => _search;
+        set
+        {
+            _search = value;
+            _questions = new ObservableCollection<Question>(_quizManager.CurrentQuizGenres.SelectMany(genre =>
+                _quizManager.Questions.Where(q => q.Genres.Contains(genre))).ToList()
+                .Where(q => q.Statement.ToLower().Contains(_search.ToLower())).ToList());
+            OnPropertyChanged(nameof(Questions));
+        }
+    }
+
     private string _selectedQuestionIndex;
 
     public string SelectedQuestionIndex
@@ -25,11 +40,18 @@ public class QuestionBankViewModel : ViewModelBase
         set
         {
             _selectedQuestionIndex = value;
-            _selectedQuestion = _quizManager.CurrentQuiz.Questions.ElementAt(int.Parse(_selectedQuestionIndex));
+            if (_questions.Count() >= int.Parse(_selectedQuestionIndex) && int.Parse(_selectedQuestionIndex) >= 0)
+            {
+                _selectedQuestion = Questions.ElementAt(int.Parse(_selectedQuestionIndex));
+            }
+            else
+            {
+                _selectedQuestionIndex = null;
+            }
             OnPropertyChanged(nameof(SelectedQuestionIndex));
         }
     }
-    
+
 
     private ObservableCollection<Question> _questions;
 
@@ -39,9 +61,10 @@ public class QuestionBankViewModel : ViewModelBase
         {
             var temp = _questions.GroupBy(q => q.Statement).Select(y => y.First());
             _questions = new ObservableCollection<Question>(temp);
-            return _questions; 
+            return _questions;
 
         }
+        set => OnPropertyChanged(nameof(Search));
     }
 
     public ICommand PickFromDbCommand { get; }
@@ -51,11 +74,14 @@ public class QuestionBankViewModel : ViewModelBase
     public QuestionBankViewModel(QuizManager quizManager, NavigationService questionBankViewModel, NavigationService navigateToQuestions)
     {
         _quizManager = quizManager;
-        _questions = new ObservableCollection<Question>(_quizManager.Questions);
 
+        var temp = _quizManager.CurrentQuizGenres.SelectMany(genre =>
+        _quizManager.Questions.Where(q => q.Genres.Contains(genre))).ToList();
+
+        _questions = new ObservableCollection<Question>(temp);
 
         QuestionsCommand = new QuestionsCommand(navigateToQuestions);
-        PickFromDbCommand = new PickFromDbCommand(this, questionBankViewModel, quizManager);
+        PickFromDbCommand = new PickFromQuestionBankCommand(this, questionBankViewModel, quizManager);
     }
 
 }

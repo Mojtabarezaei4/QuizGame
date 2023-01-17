@@ -95,7 +95,7 @@ public class AddANewQuestionViewModel : ViewModelBase
     public ICommand NavigateToQuestionBank { get; }
     public ICommand NextCommand { get; }
 
-    
+
 
     #endregion
 
@@ -103,9 +103,9 @@ public class AddANewQuestionViewModel : ViewModelBase
         NavigationService navigateAddQuestionView, NavigationService navigateToQuestionBank)
     {
         _quizManager = quizManager;
-        
+
         NavigateToQuestionBank = new NavigateCommand(navigateToQuestionBank);
-        CancelCommand = new CancelCommand(navigateHome);
+        CancelCommand = new CancelCommand(navigateHome, _quizManager);
         QuestionsCommand = new QuestionsCommand(navigateQuestionsView);
         NextCommand = new NextCommand(_quizManager, this, navigateAddQuestionView);
     }

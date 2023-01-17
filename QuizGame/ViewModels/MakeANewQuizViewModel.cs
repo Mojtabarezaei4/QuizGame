@@ -38,7 +38,7 @@ public class MakeANewQuizViewModel : ViewModelBase
         }
     }
     
-    public ObservableCollection<Genre> Genres { get; }
+    public ObservableCollection<String> Genres { get; }
 
     private string? _imageSource;
 
@@ -66,10 +66,15 @@ public class MakeANewQuizViewModel : ViewModelBase
         NavigationService navigateToAddQuestion, NavigationService navigateToNewQuizViewModel)
     {
         _quizManager = quizManager;
-        Genres = new ObservableCollection<Genre>(_quizManager.Genres);
+        var temp = new List<String>();
+        foreach (var genre in _quizManager.Genres)
+        {
+            temp.Add(genre.Name);
+        }
+        Genres = new ObservableCollection<string>(temp);
 
         AddGenreCommand = new AddGenreCommand(_quizManager, this, navigateToNewQuizViewModel);
-        CancelCommand = new CancelCommand(navigateToHome);
+        CancelCommand = new CancelCommand(navigateToHome, _quizManager);
         AddQuestionCommand = new AddQuestionCommand(_quizManager, this, navigateToAddQuestion);
     }
 }

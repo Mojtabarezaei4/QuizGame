@@ -71,7 +71,7 @@ public class HomeViewModel : ViewModelBase
 
         _quizzes = new ObservableCollection<Quiz>(_quizManager.Quizzes);
 
-        EditQuizCommand = new EditQuizCommand(this, navigateToEditQuiz);
+        EditQuizCommand = new EditQuizCommand(_quizManager,this, navigateToEditQuiz);
         PlayCommand = new PlayCommand(this, navigateToPlay);
 
         MakeAQuizCommand = new MakeANewQuizCommand(navigateToMakeAQuiz);

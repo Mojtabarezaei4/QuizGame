@@ -2,6 +2,7 @@
 using QuizGame.Services;
 using QuizGame.ViewModels;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace QuizGame.Commands;
 
@@ -34,9 +35,9 @@ public class FinishCommand: CommandBase
     }
 
 
-    private void SaveChanges()
+    private async Task SaveChanges()
     {
-        _quizManager.SaveAQuiz();
+        await _quizManager.SaveAQuiz();
     }
 
     public override void Execute(object? parameter)
