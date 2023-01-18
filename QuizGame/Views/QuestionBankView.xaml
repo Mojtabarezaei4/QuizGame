@@ -36,7 +36,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Width="240"
-                Margin="290,0,0,0"
+                Margin="290,0,0,10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="15"
@@ -47,6 +47,7 @@
                 Grid.Column="1"
                 Width="460"
                 Height="40"
+                Margin="0,0,0,10"
                 HorizontalAlignment="Left"
                 BorderBrush="Transparent"
                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" />
@@ -106,7 +107,8 @@
                                         Grid.Row="1"
                                         FontSize="15"
                                         Text="{Binding Statement}"
-                                        TextAlignment="Center" />
+                                        TextAlignment="Center"
+                                        TextTrimming="CharacterEllipsis" />
                                     <ListView
                                         Grid.Row="2"
                                         HorizontalContentAlignment="Center"

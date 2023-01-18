@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDbDataAccess.DataAccess;
+using MongoDbDataAccess.DataGenerator;
 using MongoDbDataAccess.Models;
 
 namespace QuizGame.Managers;
@@ -30,6 +31,12 @@ public class QuizManager
     public async Task LoadQuizzes()
     {
         Quizzes = await _quizDataAccess.GetAllQuizzes();
+
+        if (!Quizzes.Any())
+        {
+            new DataGenerator(_quizDataAccess).GenerateData();
+            await LoadQuizzes();
+        }
         foreach (var q in Quizzes.Where(q => !q.Questions.Any()).ToList())
         {
             Quizzes.Remove(q);
@@ -39,6 +46,7 @@ public class QuizManager
         Questions = await _quizDataAccess.GetAllQuestions();
 
         Genres = new ObservableCollection<Genre>(await _quizDataAccess.GetAllGenres());
+
 
     }
 

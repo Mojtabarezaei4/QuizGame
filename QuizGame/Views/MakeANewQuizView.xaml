@@ -149,7 +149,7 @@
                                 ItemContainerStyle="{StaticResource checkmarkItem}"
                                 ItemsSource="{Binding Genres}"
                                 ScrollViewer.CanContentScroll="True"
-                                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
                                 SelectionMode="Multiple" />
 
 
