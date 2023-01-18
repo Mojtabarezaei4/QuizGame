@@ -12,10 +12,10 @@ public class QuestionBankViewModel : ViewModelBase
 {
     private readonly QuizManager _quizManager;
 
+    #region Props
+
     private Question _selectedQuestion;
     public Question SelectedQuestion => _selectedQuestion;
-
-
 
     private string _search;
 
@@ -52,7 +52,6 @@ public class QuestionBankViewModel : ViewModelBase
         }
     }
 
-
     private ObservableCollection<Question> _questions;
 
     public ObservableCollection<Question> Questions
@@ -67,8 +66,14 @@ public class QuestionBankViewModel : ViewModelBase
         set => OnPropertyChanged(nameof(Search));
     }
 
+    #endregion
+
+    #region Commands
+
     public ICommand PickFromDbCommand { get; }
     public ICommand QuestionsCommand { get; }
+
+    #endregion
 
 
     public QuestionBankViewModel(QuizManager quizManager, NavigationService questionBankViewModel, NavigationService navigateToQuestions)

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using MongoDB.Driver;
 using MongoDbDataAccess.Models;
 
@@ -88,12 +87,6 @@ public class QuizDataAccess
     {
         var quizCollection = ConnectToMongo<Quiz>(QuizCollection);
         return quizCollection.DeleteOneAsync(q => q.Id == quiz.Id);
-    }
-
-    public Task DeleteAQuestion(Question question)
-    {
-        var questionCollection = ConnectToMongo<Question>(QuestionCollection);
-        return questionCollection.DeleteOneAsync(q => q.Id == question.Id);
     }
 
 }

@@ -1,11 +1,5 @@
 ﻿using QuizGame.Managers;
 using QuizGame.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using MongoDbDataAccess.DataAccess;
 using MongoDbDataAccess.Models;
@@ -20,12 +14,11 @@ namespace QuizGame
     {
         private readonly NavigationManager _navigationManager;
         private readonly QuizManager _quizManager;
-        private readonly QuizDataAccess _quizDataAccess;
 
         public App()
         {
-            _quizDataAccess = new QuizDataAccess();
-            _quizManager = new QuizManager(_quizDataAccess);
+            var quizDataAccess = new QuizDataAccess();
+            _quizManager = new QuizManager(quizDataAccess);
             _navigationManager = new NavigationManager();
         }
 

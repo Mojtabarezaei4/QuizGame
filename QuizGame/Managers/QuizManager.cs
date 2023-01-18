@@ -11,7 +11,6 @@ namespace QuizGame.Managers;
 public class QuizManager
 {
     private readonly QuizDataAccess _quizDataAccess;
-    //public QuizDataAccess QuizDataAccess => _quizDataAccess;
     public Quiz CurrentQuiz { get; set; }
     public Question CurrentQuestion { get; set; }
 
@@ -46,8 +45,6 @@ public class QuizManager
         Questions = await _quizDataAccess.GetAllQuestions();
 
         Genres = new ObservableCollection<Genre>(await _quizDataAccess.GetAllGenres());
-
-
     }
 
     public async Task SaveAQuiz()
@@ -80,11 +77,7 @@ public class QuizManager
     {
         _quizDataAccess.UpdateAQuiz(quiz);
     }
-    public void DeleteQuestion(Question question)
-    {
-        _quizDataAccess.DeleteAQuestion(question);
-    }
-
+    
     public void SaveAGenre(string newGenre)
     {
         var genre = new Genre()
